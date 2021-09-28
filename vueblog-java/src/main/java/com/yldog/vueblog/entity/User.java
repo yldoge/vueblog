@@ -27,16 +27,24 @@ public class User implements Serializable {
 
     private String username;
 
+    private String password;
+
+    @TableField(fill = FieldFill.INSERT)
+    private String salt;
+
     private String avatar;
 
     private String email;
 
-    private String password;
-
     private Integer status;
 
+    private Integer delFlag;
+
     @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime created;
+    private LocalDateTime createTime;
+
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
     private LocalDateTime lastLogin;
 

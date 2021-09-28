@@ -19,7 +19,10 @@
 package
         com.yldog.vueblog.mapper;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.yldog.vueblog.entity.Blog;
+import com.yldog.vueblog.entity.User;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -30,7 +33,24 @@ import java.util.concurrent.TimeUnit;
 public class MapperTest {
 
     @Resource
+    private UserMapper userMapper;
+
+    @Resource
     private BlogMapper blogMapper;
+
+    @Test
+    public void addUserTest() {
+        User user = new User();
+        user.setUsername("yldog");
+        user.setEmail("ly007@bucknell.edu");
+        user.setStatus(0);
+        user.setDelFlag(0);
+        userMapper.insert(user);
+
+        User userJustCreated = userMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getUsername, "yldog"));
+        userJustCreated.setPassword(new Md5Hash(userJustCreated.getUsername() + "003773" + userJustCreated.getSalt()).toHex());
+        userMapper.updateById(userJustCreated);
+    }
 
     @Test
     public void addBlogTest() {
