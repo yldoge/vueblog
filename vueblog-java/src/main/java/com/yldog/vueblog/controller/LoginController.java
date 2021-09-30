@@ -20,26 +20,32 @@ package
         com.yldog.vueblog.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yldog.vueblog.common.Result;
+import com.yldog.vueblog.entity.LoginInfo;
 import com.yldog.vueblog.entity.User;
+import com.yldog.vueblog.service.LoginInfoService;
 import com.yldog.vueblog.service.UserService;
 import com.yldog.vueblog.shiro.service.LoginService;
 import com.yldog.vueblog.utils.JwtUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.naming.AuthenticationException;
 
+@RequestMapping("/login")
 @RestController
 public class LoginController {
 
     @Resource
-    private UserService userService;
+    private LoginInfoService loginInfoService;
 
     @Resource
     private LoginService loginService;
 
-    @PostMapping("/login")
+    @PostMapping()
     public Result login(@RequestParam("username") String username,
                         @RequestParam("password") String password) {
 
@@ -50,6 +56,16 @@ public class LoginController {
             return Result.error("用户名或密码错误!");
         }
 
+    }
+
+    @GetMapping("/info")
+    @RequiresAuthentication
+    public Result getLoginInfo(@RequestParam(defaultValue = "1") Integer pageNum,
+                               @RequestParam(defaultValue = "5") Integer pageSize) {
+        return Result.success("请求成功",
+                loginInfoService.page(new Page<>(pageNum, pageSize),
+                        Wrappers.<LoginInfo>lambdaQuery()
+                                .orderByDesc(LoginInfo::getLoginTime)));
     }
 
     @GetMapping("/unauthorized/{message}")

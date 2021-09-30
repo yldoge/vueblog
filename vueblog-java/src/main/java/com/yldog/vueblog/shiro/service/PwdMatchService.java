@@ -19,6 +19,8 @@
 package
         com.yldog.vueblog.shiro.service;
 
+import com.yldog.vueblog.common.Factory.TaskFactory;
+import com.yldog.vueblog.common.Manager.AsyncManager;
 import com.yldog.vueblog.entity.User;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -29,6 +31,7 @@ public class PwdMatchService {
 
     public void validate(User user, String loginPassword) {
         if (!match(user, loginPassword)) {
+            AsyncManager.getTheManager().execute(TaskFactory.collectLoginInfo(user.getUsername(), "密码错误"));
             throw new IncorrectCredentialsException("密码错误");
         }
     }

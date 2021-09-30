@@ -34,6 +34,8 @@ public class AutoFillHandler implements MetaObjectHandler {
 
         // 自动填充盐值
         this.strictInsertFill(metaObject, "salt", String.class, ShiroUtils.generateRandomSalt());
+
+        this.strictInsertFill(metaObject, "loginTime", LocalDateTime.class, LocalDateTime.now());
     }
 
     @Override

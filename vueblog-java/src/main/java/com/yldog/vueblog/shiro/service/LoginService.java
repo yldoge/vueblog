@@ -19,6 +19,8 @@
 package
         com.yldog.vueblog.shiro.service;
 
+import com.yldog.vueblog.common.Factory.TaskFactory;
+import com.yldog.vueblog.common.Manager.AsyncManager;
 import com.yldog.vueblog.common.enums.UserStatus;
 import com.yldog.vueblog.entity.User;
 import com.yldog.vueblog.service.UserService;
@@ -44,16 +46,21 @@ public class LoginService {
 
         // 检查用户是否存在
         if (loginUser == null) {
+            AsyncManager.getTheManager().execute(TaskFactory.collectLoginInfo(username, "用户名不存在"));
             throw new UnknownAccountException("用户名不存在");
         }
 
         // 检查用户账号状态
         if (UserStatus.BANNED.getCode() == loginUser.getStatus()) {
+            AsyncManager.getTheManager().execute(TaskFactory.collectLoginInfo(username, "账户已被封禁"));
             throw new DisabledAccountException("账户已被封禁");
         }
 
         // 检查密码
         pwdMatchService.validate(loginUser, password);
+
+        // 登录记录
+        AsyncManager.getTheManager().execute(TaskFactory.collectLoginInfo(username, "登录成功"));
 
         // 更新用户
         updateLastLogin(loginUser);

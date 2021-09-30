@@ -19,6 +19,7 @@
 package
         com.yldog.vueblog.utils;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 
 /**
@@ -33,4 +34,5 @@ public class ShiroUtils {
         SecureRandomNumberGenerator srnGenerator = new SecureRandomNumberGenerator();
         return srnGenerator.nextBytes(3).toHex();
     }
+
 }
