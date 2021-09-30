@@ -17,7 +17,7 @@
  * ****************************************
  */
 package
-        com.yldog.vueblog.common.Factory;
+        com.yldog.vueblog.common.factory;
 
 import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.http.useragent.UserAgent;

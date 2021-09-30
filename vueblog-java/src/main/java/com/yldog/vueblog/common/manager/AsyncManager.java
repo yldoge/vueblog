@@ -17,7 +17,7 @@
  * ****************************************
  */
 package
-        com.yldog.vueblog.common.Manager;
+        com.yldog.vueblog.common.manager;
 
 import cn.hutool.extra.spring.SpringUtil;
 import org.slf4j.Logger;

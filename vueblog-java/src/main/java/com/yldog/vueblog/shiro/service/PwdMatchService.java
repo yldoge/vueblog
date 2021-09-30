@@ -19,8 +19,8 @@
 package
         com.yldog.vueblog.shiro.service;
 
-import com.yldog.vueblog.common.Factory.TaskFactory;
-import com.yldog.vueblog.common.Manager.AsyncManager;
+import com.yldog.vueblog.common.factory.TaskFactory;
+import com.yldog.vueblog.common.manager.AsyncManager;
 import com.yldog.vueblog.entity.User;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.crypto.hash.Md5Hash;

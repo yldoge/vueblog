@@ -19,8 +19,8 @@
 package
         com.yldog.vueblog.shiro.service;
 
-import com.yldog.vueblog.common.Factory.TaskFactory;
-import com.yldog.vueblog.common.Manager.AsyncManager;
+import com.yldog.vueblog.common.factory.TaskFactory;
+import com.yldog.vueblog.common.manager.AsyncManager;
 import com.yldog.vueblog.common.enums.UserStatus;
 import com.yldog.vueblog.entity.User;
 import com.yldog.vueblog.service.UserService;
@@ -30,7 +30,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Component
 public class LoginService {

@@ -17,7 +17,7 @@
  * ****************************************
  */
 package
-        com.yldog.vueblog.common.Manager;
+        com.yldog.vueblog.common.manager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
