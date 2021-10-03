@@ -19,9 +19,12 @@
 package
         com.yldog.vueblog.mapper;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.yldog.vueblog.entity.Blog;
+import com.yldog.vueblog.entity.Role;
 import com.yldog.vueblog.entity.User;
+import com.yldog.vueblog.service.impl.RoleServiceImpl;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,6 +40,9 @@ public class MapperTest {
 
     @Resource
     private BlogMapper blogMapper;
+
+    @Resource
+    private RoleMapper roleMapper;
 
     @Test
     public void addUserTest() {
@@ -66,5 +72,24 @@ public class MapperTest {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Test
+    public void addRoleTest() {
+        Role admin = new Role();
+        admin.setRoleKey("admin");
+        Role common = new Role();
+        common.setRoleKey("common");
+        roleMapper.insert(admin);
+        roleMapper.insert(common);
+    }
+
+    @Test
+    public void selectRoleByUserIdTest() {
+        SpringUtil.getBean(RoleServiceImpl.class)
+                .selectRolesByUserId(1L)
+                .forEach((role -> {
+                    System.out.println(role.getRoleKey());
+                }));
     }
 }

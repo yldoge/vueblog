@@ -47,26 +47,26 @@ public class BlogController {
         return blog == null ? Result.error(404, "该博客已被删除") : Result.success("请求成功", blog);
     }
 
-    // 创建、编辑博客
-    @PostMapping("/edit")
-    @RequiresAuthentication
-    public Result edit(@RequestBody Blog blog) {
-        if (blog.getId() == null) { // 说明是要创建一篇新的博客
-            blogService.save(Blog.create(blog.getUserId(), blog.getTitle(), blog.getDescription(),
-                    blog.getContent(), blog.getStatus()));
-            return Result.success("创建成功");
-        } else { // 说明要编辑一篇现有的博客
-
-            // 从subject中获得 userId
-            Long userId = (Long) SecurityUtils.getSubject().getPrincipal();
-
-            if (userId.equals(blog.getUserId())) {
-                blogService.saveOrUpdate(blog);
-                return Result.success("编辑成功");
-            } else {
-                return Result.error("您没有编辑这篇博客的权限");
-            }
-        }
-    }
+//    // 创建、编辑博客
+//    @PostMapping("/edit")
+//    @RequiresAuthentication
+//    public Result edit(@RequestBody Blog blog) {
+//        if (blog.getId() == null) { // 说明是要创建一篇新的博客
+//            blogService.save(Blog.create(blog.getUserId(), blog.getTitle(), blog.getDescription(),
+//                    blog.getContent(), blog.getStatus()));
+//            return Result.success("创建成功");
+//        } else { // 说明要编辑一篇现有的博客
+//
+//            // 从subject中获得 userId
+//            Long userId = (Long) SecurityUtils.getSubject().getPrincipal();
+//
+//            if (userId.equals(blog.getUserId())) {
+//                blogService.saveOrUpdate(blog);
+//                return Result.success("编辑成功");
+//            } else {
+//                return Result.error("您没有编辑这篇博客的权限");
+//            }
+//        }
+//    }
 
 }

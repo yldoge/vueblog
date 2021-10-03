@@ -20,4 +20,6 @@ public interface UserService extends IService<User> {
      */
     User getUserByUsername(String username);
 
+    int registerUser(User user);
+
 }
